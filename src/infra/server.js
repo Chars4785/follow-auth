@@ -1,23 +1,28 @@
-import express from 'express'
-import accountApp from '../app/account/accountApp'
 import _ from 'lodash'
+import mongoose from 'mongoose';
+import app from './follow-express';
 
-const port = 3000;
-const app = express();
-const routerInstance = express.Router();
-
-const routers =[
-    accountApp
-]
-
-_.forEach( routers, ( router )=>{
-    app.use('/v1', router(routerInstance))
+const { PORT, MONGO_URI } = process.env;
+const opt = {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true,
+}
+mongoose.connection.on('connected', ()=>{
+    console.log("connnected")
 })
-
-app.get('/', (req, res) =>{
-    res.send('Hello World!')
+mongoose.connection.on('disconnected', ()=>{
+    console.log("Disconnect")
 })
+mongoose.connect( MONGO_URI, opt)
+    .then( () =>{ 
+        console.log('SuccessFully connected to mongodb') 
+    })
+    .catch( () =>{ 
+        console.log('Failed connected to mongodb')
+    })
 
-app.listen(port, () =>{
-    console.log(`START PORT IS ${port}`)
+app.listen(PORT, () =>{
+    console.log(`START PORT IS ${PORT}`)
 });
+

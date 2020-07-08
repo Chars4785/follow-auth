@@ -1,19 +1,19 @@
 import mongoose from 'mongoose';
 
 const accountSchema = new mongoose.Schema({
-    userId:{
+       userId:{
         type:String,
         required:true
+        },
+        password:{
+            type:String,
+            required:true
+        },
     },
-    password:{
-        type:String,
-        required:true
-    },
-    roles:{
-        type:Array,
-        required:true
+    {
+        timestamps:true
     }
+);
 
-})
-
-export default mongoose.model( 'Account', accountSchema );
+const Account = mongoose.model( 'Account', accountSchema );
+export default Account;
