@@ -1,11 +1,13 @@
 import express from 'express'
 import accountApp from '../app/account/accountApp'
 import _ from 'lodash'
-require('dotenv').config();
+import bodyParser from 'body-parser'
+
+require( 'dotenv' ).config();
 
 const app = express();
 const routerInstance = express.Router();
-
+// app.use(bodyParser.json());
 const routers =[
     accountApp
 ]
