@@ -1,7 +1,8 @@
 import express from 'express'
 import accountApp from '../app/account/accountApp'
+import bodyParser from 'body-parser';
 import _ from 'lodash'
-import bodyParser from 'body-parser'
+import cors from 'cors';
 
 require( 'dotenv' ).config();
 
@@ -11,7 +12,7 @@ const routerInstance = express.Router();
 const routers =[
     accountApp
 ]
-
+app.use(cors())
 _.forEach( routers, ( router )=>{
     app.use('/v1', router(routerInstance))
 })
