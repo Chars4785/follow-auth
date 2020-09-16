@@ -39,7 +39,9 @@ const decodeToken = ({ jwtSecretKey }) => {
     };
 };
 
-export default {
-    signToken,
-    decodeToken
+const checkToken = ( req, res, next ) =>{
+    console.log("hi")
+    next();
 }
+
+export default checkToken;
