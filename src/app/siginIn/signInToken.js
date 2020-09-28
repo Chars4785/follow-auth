@@ -11,7 +11,7 @@ signIn.post('/', async ( req, res, next ) =>{
     let { userId, passWord } = req.body;
     userId = _.trim(userId);
     passWord = _.trim( passWord );
-
+    
     let account;
     let query
     query.userId = userId;

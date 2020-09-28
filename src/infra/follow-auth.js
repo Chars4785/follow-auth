@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken';
 const TOKEN_TYPE = 'Bearer';
 const TOKEN_ALGORITHM = 'HS256';
+const { JWT_SECRET_KEY } = process.env;
 
 const signToken = async ({ data, tokenType, expireIn }) => {
     const TOKEN_EXPIRE_IN = Math.floor( Date.now() / 1000 ) + ( 60 * 60 * 24 );
@@ -15,32 +16,35 @@ const signToken = async ({ data, tokenType, expireIn }) => {
     };
 }
 
-const decodeToken = ({ jwtSecretKey }) => {
-    return async ( request ) => {
-        const { authorization } = request.headers;
-        if ( !authorization ){
-            throw new Error( 'authorization is not found' );
-        };
-        const token = authorization.replace( 'Bearer ', '' );
-        try {
-            request.decoded = await jwt.verify( token, jwtSecretKey );
-        } catch ( e ) {
-            const decoded = await jwt.decode(token);
-            let error;
-            if ( decoded && decoded.data ) {
-                const { userId } = decoded.data;
-                error = new Error( `accessToken[${token}] ${userId}: ${e.message}` );
-            } else {
-                error = new Error( e.message );
-            }
-            error.statusCode = 401;
-            throw error;
-        };
+const decodeToken = async (request) => {
+    const { authorization } = request.headers;
+    if ( !authorization ){
+        throw new Error( 'authorization is not found' );
+    };
+    const token = authorization.replace( 'Bearer ', '' );
+    try {
+        request.decoded = await jwt.verify( token, JWT_SECRET_KEY );
+    } catch ( e ) {
+        const decoded = await jwt.decode(token);
+        let error;
+        if ( decoded && decoded.data ) {
+            const { userId } = decoded.data;
+            error = new Error( `accessToken[${token}] ${userId}: ${e.message}` );
+        } else {
+            error = new Error( e.message );
+        }
+        error.statusCode = 401;
+        throw error;
     };
 };
 
-const checkToken = ( req, res, next ) =>{
-    console.log("hi")
+const checkToken = async ( req, res, next ) =>{
+    // try{
+    //     await decodeToken(req)
+    // }catch(e){
+    //     res.send('error',e)
+    // }
+    // console.log(req)
     next();
 }
 

@@ -1,5 +1,5 @@
 import express from 'express'
-import accountApp from '../app/account/accountApp'
+import Account from '../app/account/accountApp'
 import bodyParser from 'body-parser';
 import _ from 'lodash'
 import cors from 'cors';
@@ -12,7 +12,7 @@ const app = express();
 const routerInstance = express.Router();
 // app.use(bodyParser.json());
 const routers =[
-    accountApp
+    Account
 ]
 // app.use( checkToken );
 app.use(cors())
@@ -21,7 +21,7 @@ app.use(cors())
 app.use('/v1/sigin', signInToken);
 
 _.forEach( routers, ( router )=>{
-    app.use('/v1', checkToken, router(routerInstance))
+    app.use('/v1', checkToken, router)
 })
 
 export default app;
