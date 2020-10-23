@@ -3,6 +3,9 @@ const TOKEN_TYPE = 'Bearer';
 const TOKEN_ALGORITHM = 'HS256';
 const { JWT_SECRET_KEY } = process.env;
 
+// 지금 시간으로부터 추가 시간
+// accesstoken 디바이스 안에 저장
+// refrashToken 만료시 재로그인
 const signToken = async ({ data, tokenType, expireIn }) => {
     const TOKEN_EXPIRE_IN = Math.floor( Date.now() / 1000 ) + ( 60 * 60 * 24 );
     const REFRESH_TOKEN_EXPIRE_IN = Math.floor( Date.now() / 1000 ) + ( 60 * 60 * 24 * 90 );
@@ -12,7 +15,7 @@ const signToken = async ({ data, tokenType, expireIn }) => {
         tokenType: tokenType || TOKEN_TYPE,
         accessToken,
         refreshToken,
-        expiresAt: expireIn || TOKEN_EXPIRE_IN,
+        // expiresAt: expireIn || TOKEN_EXPIRE_IN,
     };
 }
 
@@ -39,13 +42,12 @@ const decodeToken = async (request) => {
 };
 
 const checkToken = async ( req, res, next ) =>{
-    // try{
-    //     await decodeToken(req)
-    // }catch(e){
-    //     res.send('error',e)
-    // }
-    // console.log(req)
+    console.log(req.headers);
     next();
 }
 
 export default checkToken;
+export {
+    decodeToken,
+    signToken
+}

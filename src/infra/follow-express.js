@@ -1,27 +1,33 @@
 import express from 'express'
-import Account from '../app/account/accountApp'
+import AccountRouter from '../app/account/accountRouter'
 import bodyParser from 'body-parser';
 import _ from 'lodash'
 import cors from 'cors';
 import checkToken from './follow-auth';
 import signInToken from '../app/siginIn/signInToken'
-
+const app = express();
 require( 'dotenv' ).config();
 
-const app = express();
-const routerInstance = express.Router();
-// app.use(bodyParser.json());
-const routers =[
-    Account
-]
-// app.use( checkToken );
 app.use(cors())
-
-//app noToken sigin
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/v1/sigin', signInToken);
+
+const routers =[
+    AccountRouter
+]
 
 _.forEach( routers, ( router )=>{
     app.use('/v1', checkToken, router)
 })
+
+app.use(function(err, req, res, next){
+    console.log("HERE_ERROR",err);
+    res.json({
+        message:`시스템 에러 ${err}`,
+        code: 500
+    })
+})
+
 
 export default app;

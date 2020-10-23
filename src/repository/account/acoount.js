@@ -9,7 +9,7 @@ async function findOne({ query ={}, filed ={} }){
     return Account.findOne(query).select(filed)
 }
 
-async function save( account ){
+async function save({ account }){
     return account.save();
 }
 
