@@ -19,14 +19,15 @@ const signToken = async ({ data, tokenType, expireIn }) => {
     };
 }
 
-const decodeToken = async (request) => {
+async function decodeToken(request){
+    console.log("JWT",JWT_SECRET_KEY)
     const { authorization } = request.headers;
     if ( !authorization ){
         throw new Error( 'authorization is not found' );
     };
     const token = authorization.replace( 'Bearer ', '' );
     try {
-        request.decoded = await jwt.verify( token, JWT_SECRET_KEY );
+        return request.decoded = await jwt.verify( token, JWT_SECRET_KEY );
     } catch ( e ) {
         const decoded = await jwt.decode(token);
         let error;
@@ -41,9 +42,27 @@ const decodeToken = async (request) => {
     };
 };
 
-const checkToken = async ( req, res, next ) =>{
-    console.log(req.headers);
-    next();
+async function checkToken( req, res, next ){
+    const { authorization } = req.headers;
+    if ( !authorization ){
+        throw new Error( 'authorization is not found' );
+    };
+    const token = authorization.replace( 'Bearer ', '' );
+    try {
+        req.decoded = await jwt.verify( token, JWT_SECRET_KEY );
+        next();
+    } catch ( e ) {
+        const decoded = await jwt.decode(token);
+        let error;
+        if ( decoded && decoded.data ) {
+            const { userId } = decoded.data;
+            error = new Error( `Token error accessToken userId: ${userId}: ${e.message}` );
+        } else {
+            error = new Error( e.message );
+        }
+        error.statusCode = 401;
+        next(error);
+    };
 }
 
 export default checkToken;

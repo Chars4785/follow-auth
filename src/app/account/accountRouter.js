@@ -2,16 +2,16 @@ import express from 'express'
 import accountRepository from '../../repository/account/acoount'
 import token from '../../infra/follow-auth';
 import Account from '../../model/Account/Account';
-import wrapper from '../../util/wrapper';
+import { wrapper, router } from '../../util/wrapper';
 
 const { JWT_SECRET_KEY } = process.env;
-const AccountRouter = express.Router();
+const AccountRouter = router();
 
-AccountRouter.post('/',wrapper((req,res)=>{
+AccountRouter.post('/',((req,res)=>{
+    console.log(req.decode)
     res.send({
-        message:'asd'
+        message:'/'
     })
-    
 }))
 
 AccountRouter.get('/login', wrapper(async (req,res)=>{
@@ -47,16 +47,18 @@ AccountRouter.put('/createAccount',wrapper(async( req, res )=>{
             return;
         }
     }catch(e){}
+    console.log(password);
+    console.log(typeof(password))
     const hasedPassword = Account.getPasswordHashed( password );
     const newAccount = new Account({ 
         userId, 
         password:hasedPassword,
         belongTo
     })
-    await userRepository.save({ 
-        accountId: newAccount._id,
-        ...accountInfo
-    })
+    // await userRepository.save({ 
+    //     accountId: newAccount._id,
+    //     ...accountInfo
+    // })
     await accountRepository.save({ account: newAccount });
     res.send({ accountId:newAccount._id })
 }))

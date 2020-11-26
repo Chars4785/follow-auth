@@ -26,5 +26,22 @@ accountSchema.statics.getPasswordHashed = (password) =>{
     return crypto.createHash( 'sha512' ).update( password ).digest( 'base64' );
 }
 
+accountSchema.post( 'findOne', ( document ) => {
+    let message;
+    if ( !document ) {
+        message = '계정정보를 찾을수없습니다.';
+    } 
+    // else if ( document.refs && document.refs.userId && document.deletedAt ) {
+    //     // staff는 탈퇴된계정을 복구할수있다, 고객 계정정보만 걸러야한다.
+    //     message = '이미 탈퇴된 계정입니다.';
+    // }
+    if ( message ) {
+        const error = new Error( message );
+        error.statusCode = 400;
+        error.isIntend = true;
+        throw error;
+    }
+});
+
 const Account = mongoose.model( 'Account', accountSchema );
 export default Account;
