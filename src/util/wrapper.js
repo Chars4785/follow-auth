@@ -1,5 +1,6 @@
 import express from 'express';
-import checkToken from './middleware/checkToken';
+import _ from 'lodash';
+import middlewares from './middleware';
 
 export function wrapper(asyncFun){
     return (async( req,res,next )=>{
@@ -11,7 +12,15 @@ export function wrapper(asyncFun){
     })
 }
 
-export function router(){
+export function router( middleNames ){
+    let middleware = [
+        middlewares.checkToken,
+    ]
+    if( !_.isEmpty(middleNames)){
+        _.forEach(middleNames,(name)=>{
+            middleware.push(middlewares[name]);
+        })
+    }
     const initRouter = express.Router();
-    return initRouter.use(checkToken)
+    return initRouter.use(middleware)
 }

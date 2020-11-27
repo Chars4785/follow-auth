@@ -32,7 +32,6 @@ signIn.post('/', async ( req, res, next ) =>{
         next(error);
         return;
     }
-    console.log("@@@@",account);
     const authentication = await signToken({ data:account });
     res.send({    
         belongTo:account.belongTo,

@@ -3,8 +3,8 @@ import AccountRouter from '../app/account/accountRouter'
 import bodyParser from 'body-parser';
 import _ from 'lodash'
 import cors from 'cors';
-import checkToken from './follow-auth';
 import signInToken from '../app/siginIn/signInToken'
+
 const app = express();
 require( 'dotenv' ).config();
 
@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 app.use('/sigin', signInToken);
 
 const routers =[
-    AccountRouter
+    AccountRouter,
 ]
 
 _.forEach( routers, ( router )=>{

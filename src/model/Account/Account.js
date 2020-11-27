@@ -15,7 +15,7 @@ const accountSchema = new mongoose.Schema({
         belongTo:{
             type:String,
             required:true
-        }
+        },
     },
     {
         timestamps:true

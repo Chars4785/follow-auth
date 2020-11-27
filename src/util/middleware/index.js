@@ -3,7 +3,7 @@ const TOKEN_TYPE = 'Bearer';
 const TOKEN_ALGORITHM = 'HS256';
 const { JWT_SECRET_KEY } = process.env;
 
-export default async function checkToken( req, res, next ){
+async function checkToken( req, res, next ){
     const { authorization } = req.headers;
     if ( !authorization ){
         throw new Error( 'authorization is not found' );
@@ -24,4 +24,14 @@ export default async function checkToken( req, res, next ){
         error.statusCode = 401;
         next(error);
     };
+}
+
+function allowRoles(req, res, next){
+    console.log("@@@")
+    next();
+}
+
+export default {
+    allowRoles,
+    checkToken,
 }
