@@ -8,9 +8,9 @@ import _ from 'lodash';
 const { MASTER_PW } = process.env;
 const signIn = express.Router();
 
-// 처음 로그인 하는 대상자
-signIn.post('/', async ( req, res, next ) =>{
-    let { userId, password, belongTo } = req.body;
+// frist login
+signIn.get('/signin', async ( req, res, next ) =>{
+    let { userId, password } = req.query;
     userId = _.trim(userId);
     password = _.trim( password );
     console.log(userId);
