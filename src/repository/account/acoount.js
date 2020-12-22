@@ -13,8 +13,13 @@ async function save({ account }){
     return account.save();
 }
 
+async function upsert({ query,update }){
+    return Account.updateOne( query, update, { upsert: true })
+}
+
 export default{
     find,
     findOne,
-    save
+    save,
+    upsert
 }

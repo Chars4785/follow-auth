@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import crypto from 'crypto';
+import { ObjectID } from 'mongodb';
 
 // 고객에 대한 정보
 // 나중에 어떤 교회에 포함인지, 어디 소속인지에 따라서 나눠야 한다.
@@ -16,6 +17,10 @@ const accountSchema = new mongoose.Schema({
             type:String,
             required:true
         },
+        accountId:{
+            type:ObjectID,
+            required:true
+        }
     },
     {
         timestamps:true
