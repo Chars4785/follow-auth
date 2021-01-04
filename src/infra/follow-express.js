@@ -1,5 +1,6 @@
 import express from 'express'
 import AccountRouter from '../app/account/accountRouter'
+import UserRouter from '../app/user/userRouter';
 import bodyParser from 'body-parser';
 import _ from 'lodash'
 import cors from 'cors';
@@ -19,6 +20,7 @@ app.use(bodyParser.json());
 const routers =[
     signInToken,
     AccountRouter,
+    UserRouter
 ]
 
 _.forEach( routers, ( router )=>{

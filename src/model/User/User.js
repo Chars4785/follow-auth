@@ -9,6 +9,8 @@ const userSchema = new mongoose.Schema({
         name: String,
         // 유저 이메일
         email: String,
+        // 유저 아이디
+        userId: String,
         // 생년 월일
         birthDay: Date,
         // 휴대폰 번호
@@ -16,7 +18,7 @@ const userSchema = new mongoose.Schema({
         // 등록일
         registerDate: Date,
         // 제자반 여부
-        discipleship: discipleshipSchema,
+        isDisciple: discipleshipSchema,
         // 소속 GBS
         GBS_ObjectId: mongoose.Types.ObjectId,
         // 소속 LBS
@@ -26,7 +28,6 @@ const userSchema = new mongoose.Schema({
         // 권한
         roles: {
             type: Array,
-            required: true
         }
     },
     {
