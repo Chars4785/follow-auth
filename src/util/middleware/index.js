@@ -27,7 +27,6 @@ async function checkToken( req, res, next ){
 }
 
 function allowRoles(req, res, next){
-    console.log("@@@")
     next();
 }
 

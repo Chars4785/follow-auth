@@ -9,11 +9,10 @@ const { MASTER_PW } = process.env;
 const signIn = express.Router();
 
 // frist login
-signIn.get('/signin', async ( req, res, next ) =>{
+signIn.get('/token', async ( req, res, next ) =>{
     let { userId, password } = req.query;
     userId = _.trim(userId);
     password = _.trim( password );
-    console.log(userId);
 
     let account;
     let query = {}

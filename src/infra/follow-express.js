@@ -28,7 +28,6 @@ _.forEach( routers, ( router )=>{
 })
 
 app.use((err, req, res, next)=>{
-    console.log("HERE_ERROR",err);
     res.status(500).send({
         message:`시스템 에러`,
         error:err,
