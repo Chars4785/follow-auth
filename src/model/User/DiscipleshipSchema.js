@@ -1,21 +1,13 @@
 import mongoose from 'mongoose';
 
 const discipleshipSchema = new mongoose.Schema({
+        // 제자 학교A    
+        discipleshipA: Boolean,
+        // 제자 학교 B
+        discipleshipB: Boolean,
         // 제자반 이름
-        discipleshipName:String,
-        // 제자반 아이디
-        discipleshipObjectId: mongoose.Types.ObjectId,
-        // 제자반 시작
-        createdAt: {
-            type: Date,
-            required: true,
-        },
-        // 제자반 수료
-        finishedAt: {
-            type: Date,
-            required: true,
-        },
-    },
+        discipleship: Boolean
+    },{ _id: false }
 );
 
 export default discipleshipSchema;
