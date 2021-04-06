@@ -20,7 +20,6 @@ const signToken = async ({ data, tokenType, expireIn }) => {
 }
 
 async function decodeToken(request){
-    console.log("JWT",JWT_SECRET_KEY)
     const { authorization } = request.headers;
     if ( !authorization ){
         throw new Error( 'authorization is not found' );

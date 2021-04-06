@@ -1,7 +1,6 @@
 import Account from '../../model/Account/Account';
 
 async function find({query={}}){
-    console.log(query);
     return Account.find(query)
 }
 
@@ -13,8 +12,13 @@ async function save({ account }){
     return account.save();
 }
 
+async function upsert({ query,update }){
+    return Account.updateOne( query, update, { upsert: true })
+}
+
 export default{
     find,
     findOne,
-    save
+    save,
+    upsert
 }
