@@ -20,14 +20,12 @@ signIn.get('/token', async ( req, res, next ) =>{
     if( password !== MASTER_PW ){
         query.password = Account.getPasswordHashed(password)
     }
-    try{
-       account = await accountRepository.findOne({ query })
-    }catch(e){
-        let error;
-        error = {
-            message: '아이디와 비밀번호를 확인해 주세요.'
+    account = await accountRepository.findOne({ query })
+    if (!account){
+        let error = {
+            message: '아이디와 비밀번호를 확인해 주세요.',
+            statusCode: 401
         }
-        error.statusCode = 401;
         next(error);
         return;
     }
