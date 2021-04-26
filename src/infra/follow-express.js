@@ -15,10 +15,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// app.use('/sigin', signInToken);
+app.use(`${SERVICE_PRIFIX}/v1/sign`, signInToken);
 
 const routers =[
-    signInToken,
     AccountRouter,
     UserRouter
 ]
@@ -28,11 +27,16 @@ _.forEach( routers, ( router )=>{
 })
 
 app.use((err, req, res, next)=>{
-    res.status(500).send({
+    let defaultError = {
         message:`시스템 에러`,
-        error:err,
         code: 500
-    })
+    }
+    if( err ){
+        const { statusCode, message } = err
+        defaultError.message = message
+        defaultError.code = statusCode
+    }
+    res.status(500).send({error:defaultError})
 })
 
 export default app;
