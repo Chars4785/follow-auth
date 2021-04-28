@@ -36,7 +36,7 @@ app.use((err, req, res, next)=>{
         defaultError.message = message
         defaultError.code = statusCode
     }
-    res.status(500).send({error:defaultError})
+    res.status(defaultError.code).send(defaultError)
 })
 
 export default app;
