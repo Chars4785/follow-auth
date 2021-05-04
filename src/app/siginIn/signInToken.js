@@ -36,4 +36,8 @@ signIn.get('/token', async ( req, res, next ) =>{
     })
 })
 
+signIn.post('/auth', async(req,res,next) =>{
+    
+})
+
 export default signIn
