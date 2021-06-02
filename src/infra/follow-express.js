@@ -27,7 +27,9 @@ _.forEach( routers, ( router )=>{
 })
 
 app.use((err, req, res, next)=>{
-    console.log("Error Code",err);
+    console.error("===========> ERROR START <===========");
+    console.log(err);
+    console.error("===========> ERROR CODE END <===========");
     let defaultError = {
         message:`시스템 에러`,
         code: 500

@@ -6,10 +6,11 @@ const { JWT_SECRET_KEY } = process.env;
 async function checkToken( req, res, next ){
     const { authorization } = req.headers;
     if ( !authorization ){
-        throw new Error( 'authorization is not found' );
+        next({ statusCode:401,message:' no authorization' })
     };
     const token = authorization.replace( 'Bearer ', '' );
     try {
+        console.log(token)
         req.decoded = await jwt.verify( token, JWT_SECRET_KEY );
         next();
     } catch ( e ) {
@@ -26,6 +27,15 @@ async function checkToken( req, res, next ){
     };
 }
 
+async function decodeToken( req,res,next ){
+    
+    try{
+        return await jwt.verify( token, JWT_SECRET_KEY );
+    }catch(e){
+
+    }
+}
+
 function allowRoles(req, res, next){
     next();
 }
@@ -33,4 +43,5 @@ function allowRoles(req, res, next){
 export default {
     allowRoles,
     checkToken,
+    decodeToken
 }
