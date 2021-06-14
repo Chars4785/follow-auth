@@ -3,10 +3,10 @@ import ministrySchema from './ministrySchema'
 import discipleshipSchema from './discipleshipSchema'
 
 const userSchema = new mongoose.Schema({
-        //유저 몽고 id 
-        accountId: mongoose.Types.ObjectId,
         // 유저 이름
         name: String,
+        // 권한
+        status: mongoose.Types.ObjectId,
         // 유저 이메일
         email: String,
         // 유저 아이디
@@ -17,18 +17,12 @@ const userSchema = new mongoose.Schema({
         phoneNumber: String,
         // 등록일
         registerDate: Date,
+        // 졸업일
+        graduatedDate: Date,
+        // 주소
+        address: String,
         // 제자반 여부
         isDisciple: discipleshipSchema,
-        // 소속 GBS
-        GBS_ObjectId: mongoose.Types.ObjectId,
-        // 소속 LBS
-        LBS_ObjectId: mongoose.Types.ObjectId,
-        // 사역
-        ministry: [ ministrySchema ],
-        // 권한
-        roles: {
-            type: Array,
-        }
     },
     {
         timestamps:true

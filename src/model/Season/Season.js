@@ -5,9 +5,9 @@ const seasonSchema = new mongoose.Schema({
         // season 이름: 2021년 1학기
         name:String,
         // 시작 기간
-        startGroupDate: Date,
+        startDate: Date,
         // 끝나는 기간
-        endGroupDate: Date,
+        endDate: Date,
     },
     {
         timestamps:true
