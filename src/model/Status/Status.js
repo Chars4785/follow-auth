@@ -3,16 +3,24 @@ import _ from 'lodash'
 //  role에 대한 이야기는 관리자 이런 식으로 나눠야 한다.
 
 export const STATUS_NAME ={
-    // 간사
-    GANSA: '간사',
     // 코디
-    CODI: '코디',
+    GODI: 'GODI',
     // 리더
-    LEADER: '리더',
+    LEADER:'LEADER',
     // 조원
-    MEMBERS: '조원',
+    MEMBERS:'MEMBERS',
     // 관리자
-    MATSER: '관리자'
+    MATSER:'MATSER',
+    // 교육 간사
+    EDU_GANSA:'EDU_GANSA',
+    // 새가족 간사
+    NEWFAMILY_GANSA:'NEWFAMILY_GANSA',
+    // 예배/선교 간사
+    WORSHIP_GANSA:'WORSHIP_GANSA',
+    // 양육/재정 간사
+    NURTURE_GANSA:'NURTURE_GANSA',
+    // 행정 간사
+    ADMIN_GANSA:'ADMIN_GANSA'
 }
 
 const StatusSchema = new mongoose.Schema({
