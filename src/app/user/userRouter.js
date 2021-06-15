@@ -31,6 +31,15 @@ UserRouter.get('/user/userInfo',wrapper( async ( req,res ) =>{
     })
 }))
 
+/*
+* summary: 해당 기간 유저 정보 모두 가져오기 ( 졸업자 제외, )
+*/
+UserRouter.get('/user/list',wrapper( async ( req, res ) =>{
+    const users = await userRepository.find({ 
+        fields: { name:1 }
+    })
+    res.send(users)
+}))
 export default UserRouter;
 
 

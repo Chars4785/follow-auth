@@ -1,10 +1,12 @@
 import express from 'express'
 import AccountRouter from '../app/account/accountRouter'
 import UserRouter from '../app/user/userRouter';
+import GroupRouter from '../app/group/GroupRouter';
 import bodyParser from 'body-parser';
 import _ from 'lodash'
 import cors from 'cors';
 import signInToken from '../app/siginIn/signInToken'
+import SeasonRouter from '../app/season/seasonRouter';
 
 const SERVICE_PRIFIX = '/follow-as';
 const app = express();
@@ -19,7 +21,9 @@ app.use(`${SERVICE_PRIFIX}/v1/sign`, signInToken);
 
 const routers =[
     AccountRouter,
-    UserRouter
+    UserRouter,
+    GroupRouter,
+    SeasonRouter
 ]
 
 _.forEach( routers, ( router )=>{
