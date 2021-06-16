@@ -23,6 +23,8 @@ const userSchema = new mongoose.Schema({
         address: String,
         // 제자반 여부
         isDisciple: discipleshipSchema,
+        // 삭제 날짜
+        deletedAt: Date,
     },
     {
         timestamps:true

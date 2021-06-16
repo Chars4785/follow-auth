@@ -14,7 +14,9 @@ const UserAttendance = new mongoose.Schema({
             name: String,
             // 몽고 아이디
             userId: mongoose.Types.ObjectId
-        }
+        },
+        // 삭제 날짜
+        deletedAt: Date,
     },
     {
         timestamps:true

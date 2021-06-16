@@ -4,7 +4,7 @@ import _ from 'lodash'
 
 export const STATUS_NAME ={
     // 코디
-    GODI: 'GODI',
+    CODI: 'CODI',
     // 리더
     LEADER:'LEADER',
     // 조원
@@ -24,14 +24,18 @@ export const STATUS_NAME ={
 }
 
 const StatusSchema = new mongoose.Schema({
+        // 상태
         status:{
             type:String,
             enum: _.keys(STATUS_NAME)
         },
+        // 상태 이름
         statusName:{
             type:String,
             required:true
-        }
+        },
+        // 삭제 날짜
+        deletedAt: Date,
     },
     {
         timestamps:true

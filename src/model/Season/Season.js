@@ -8,6 +8,8 @@ const seasonSchema = new mongoose.Schema({
         startDate: Date,
         // 끝나는 기간
         endDate: Date,
+        // 삭제 날짜
+        deletedAt: Date,
     },
     {
         timestamps:true

@@ -26,7 +26,12 @@ const groupSchema = new mongoose.Schema({
             required: true
         },
         // 그룹에 포함되어 있는 조원
-        users: [ userSchema ],
+        users: {
+            type:Array,
+            require: true
+        },
+        // 삭제 날짜
+        deletedAt: Date,
     },
     {
         timestamps:true

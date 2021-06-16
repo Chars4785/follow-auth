@@ -26,7 +26,9 @@ const attendHistory = new mongoose.Schema({
         // 불참 이유
         absentReasone: String,
         // 출석 체크 날짜
-        attendCheckDate: Date
+        attendCheckDate: Date,
+        // 삭제 날짜
+        deletedAt: Date,
     },
     {
         timestamps:true

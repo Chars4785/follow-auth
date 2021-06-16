@@ -21,7 +21,9 @@ const accountSchema = new mongoose.Schema({
         accountId:{
             type:ObjectID,
             required:true
-        }
+        },
+        // 삭제 날짜
+        deletedAt: Date,
     },
     {
         timestamps:true
