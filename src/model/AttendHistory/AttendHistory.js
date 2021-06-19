@@ -31,7 +31,8 @@ const attendHistory = new mongoose.Schema({
         deletedAt: Date,
     },
     {
-        timestamps:true
+        timestamps:true,
+        versionKey: false,
     }
 );
 

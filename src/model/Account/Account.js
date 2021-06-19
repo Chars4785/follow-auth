@@ -26,7 +26,8 @@ const accountSchema = new mongoose.Schema({
         deletedAt: Date,
     },
     {
-        timestamps:true
+        timestamps:true,
+        versionKey: false,
     }
 );
 
