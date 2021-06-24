@@ -6,11 +6,12 @@ const userSchema = new mongoose.Schema({
         // 조원 이름
         name: String,
         // 상태
-        status: mongoose.Types.ObjectId,
+        status:String,
     },
     {
         timestamps:false,
-        _id: false
+        _id: false,
+        versionKey: false,
     }
 );
 

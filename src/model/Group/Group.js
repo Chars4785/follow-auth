@@ -5,7 +5,7 @@ import userSchema from './userSchema'
 export const GROUP_TYPE ={
     GBS:'GBS',
     LBS:'LBS',
-    MANAGER:'MANAGER'
+    MANAGER:'MANAGER',
 }
 
 // gbs, lbs 를 나눈다.
@@ -21,13 +21,14 @@ const groupSchema = new mongoose.Schema({
             required: true
         },
         // 해당 리더 이름
-        managerId: {
-            type: mongoose.Types.ObjectId,
+        leaderName: {
+            type: String,
             required: true
         },
         // 그룹에 포함되어 있는 조원
-        users: {
-            type:Array,
+        groupMember: [ userSchema ],
+        superManager:{
+            type:String,
             require: true
         },
         // 삭제 날짜
