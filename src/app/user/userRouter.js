@@ -6,11 +6,12 @@ import { wrapper, router } from '../../util/wrapper';
 import { signToken } from '../../infra/follow-auth';
 import { ObjectID } from 'mongodb';
 import _ from 'lodash';
+import moment from 'moment';
 
 const { JWT_SECRET_KEY } = process.env;
 const UserRouter = router();
 
-UserRouter.get('/user/users',wrapper(async(req,res)=>{
+UserRouter.get('/user/users',wrapper(async( req, res)=>{
     let { fields, page, sort, limit, queryName, value } = req.query;
     const newQuery = !value ? {} : {
         [queryName]:value
@@ -35,11 +36,36 @@ UserRouter.get('/user/userInfo',wrapper( async ( req,res ) =>{
 * summary: 해당 기간 유저 정보 모두 가져오기 ( 졸업자 제외, )
 */
 UserRouter.get('/user/list',wrapper( async ( req, res ) =>{
+    const { 
+        startDate,
+        endDate,
+        fields,
+        sort,
+        limit,
+        skip
+    } = req.body
+    let query = {}
+    if( !_.isUndefined(startDate) && !_.isUndefined(endDate) && startDate < endDate ){
+         query ={
+            'registerDate':{
+                '$gte':startDate,
+                '$lte':endDate
+            }
+        }
+    }
     const users = await userRepository.find({ 
-        fields: { name:1 }
+        query,
+        fields
     })
     res.send(users)
 }))
 export default UserRouter;
 
 
+// {
+//     "startDate":"2021-01-01T00:24:02+09:00",
+//     "endDate":"2021-01-10T00:24:02+09:00",
+//     "fields":{
+//         "name":1
+//     }
+// }
