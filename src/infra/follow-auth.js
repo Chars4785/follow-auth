@@ -24,21 +24,15 @@ const signToken = async ({ data, tokenType, expireIn }) => {
     };
 }
 
-async function decodeToken(request){
-    const { authorization } = request.headers;
-    if ( !authorization ){
-        throw new Error( 'authorization is not found' );
-    };
-    const token = authorization.replace( 'Bearer ', '' );
+async function decodeToken(refreshToken){
     try {
-        request.decoded = await jwt.verify( token, JWT_SECRET_KEY );
-        return request.decode
+        return await jwt.verify( refreshToken, JWT_SECRET_KEY );
     } catch ( e ) {
-        const decoded = await jwt.decode(token);
+        const decoded = await jwt.decode(refreshToken);
         let error;
         if ( decoded && decoded.data ) {
             const { userId } = decoded.data;
-            error = new Error( `accessToken[${token}] ${userId}: ${e.message}` );
+            error = new Error( `refreshToken [${token}] ${userId}: ${e.message}` );
         } else {
             error = new Error( e.message );
         }
