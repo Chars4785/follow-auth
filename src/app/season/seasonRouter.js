@@ -21,12 +21,12 @@ const SeasonRouter = router();
 * param:
 */
 SeasonRouter.get('/season/list',wrapper(async(req,res)=>{
-    const { skip, limit, fields } = req.body
+    const { skip, limit } = req.query
+    
     const seasonList = await seasonRepository.find({ 
         paging:true,
-        skip,
-        limit,
-        fields
+        skip:Number(skip),
+        limit:Number(limit),
     })
     res.send(seasonList);
 }))
